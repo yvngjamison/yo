@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Renewables vs. CO₂ Emissions Growth</title>
+  <style>
+    :root {
+      --primary: #2a7d2a;
+      --secondary: #8fcf5f;
+      --bg-light: #f4f9f4;
+      --bg-dark: #1e2a1e;
+      --text-light: #ffffff;
+      --text-dark: #0a0a0a;
+    }
+    @media (prefers-color-scheme: dark) {
+      body { background-color: var(--bg-dark); color: var(--text-light); }
+      a { color: var(--secondary); }
+    }
+    @media (prefers-color-scheme: light) {
+      body { background-color: var(--bg-light); color: var(--text-dark); }
+      a { color: var(--primary); }
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      max-width: 960px;
+      margin: auto;
+      padding: 1rem;
+      line-height: 1.6;
+    }
+    header {
+      background: var(--primary);
+      color: var(--text-light);
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+    header h1 { margin: 0.2em 0; }
+    section { margin-top: 2rem; }
+    h2 { border-bottom: 2px solid var(--secondary); padding-bottom: 0.3em; }
+    h3 { color: var(--primary); margin-bottom: 0.5em; }
+    img {
+      width: 100%;
+      height: auto;
+      border: 2px solid var(--secondary);
+      border-radius: 4px;
+      margin-bottom: 0.5em;
+    }
+    ul, ol { margin-left: 1.2em; }
+    footer {
+      margin-top: 3rem;
+      font-size: 0.9em;
+      text-align: center;
+      color: #666;
+    }
+    a { text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <noscript>Please enable JavaScript to view all content.</noscript>
+
+  <header>
+    <h1>Renewables vs. CO₂ Emissions Growth</h1>
+    <h2>Countries with ≥30% renewables in 2010 saw slower CO₂ growth (2010–2022)</h2>
+    <p>How early renewable adopters fared in cutting per-capita emissions.</p>
+  </header>
+
+  <section>
+    <h2>Why it matters</h2>
+    <p>Deploying renewables early displaces fossil fuels, directly lowering CO₂ output. The IPCC’s 2023 AR6 report stresses that global emissions must drop steeply this decade to avert worst-case warming<sup><a href="https://www.ipcc.ch/report/ar6/wg1/">1</a></sup>. The IEA’s 2024 Renewables Report underscores renewables’ central role in meeting net-zero goals<sup><a href="https://www.iea.org/reports/renewables-2024">2</a></sup>. Examining per-capita emissions uncovers equity gaps—high-income nations drive per-person CO₂ far above the global average, even as total emissions statistics improve<sup><a href="https://data.worldbank.org/indicator/EN.ATM.CO2E.PC">3</a></sup>.</p>
+  </section>
+
+  <section>
+    <h2>Hypothesis</h2>
+    <p>Countries whose renewable-energy share was ≥ 30 % of final energy in 2010 experienced slower growth in per-capita CO₂ emissions from 2010 to 2022 than countries below that threshold.</p>
+  </section>
+
+  <section>
+    <h2>Data &amp; methodology</h2>
+    <ul>
+      <li><strong>Renewables data:</strong> share of final energy consumption in 2010 &amp; 2022.</li>
+      <li><strong>CO₂ data:</strong> per-capita emissions in 2010 &amp; 2022.</li>
+      <li>Filtered to those two years, pivoted per country into <code>renew_2010, renew_2022, co2pc_2010, co2pc_2022</code>.</li>
+      <li>Computed <code>co2_change_pct = ((co2pc_2022 – co2pc_2010) / co2pc_2010) × 100</code>.</li>
+      <li>Grouped as <em>High ≥ 30 %</em> if <code>renew_2010 ≥ 30%</code>, else <em>Low &lt; 30 %</em>.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>World map choropleth</h3>
+    <img src="/mnt/data/output-map.png" alt="Choropleth map of countries colored by High vs Low 2010 renewables share">
+    <p>Green countries had ≥30% renewables in 2010; red had below 30%, highlighting early adopters.</p>
+  </section>
+
+  <section>
+    <h3>CO₂ per Capita Trajectories</h3>
+    <img src="output-6.png" alt="Slope chart of CO₂ per capita trajectories from 2010 to 2022">
+    <p>Lines show each country’s CO₂ path; early renewable adopters (green) generally have flatter slopes.</p>
+  </section>
+
+  <section>
+    <h3>CO₂ Change vs. 2010 Renewables</h3>
+    <img src="output-7.png" alt="Scatter plot of CO₂ change percentage versus 2010 renewables share">
+    <p>Scatter plot reveals that higher 2010 renewables share often corresponds to lower emissions growth.</p>
+  </section>
+
+  <section>
+    <h3>CO₂ Change by Renewable Group</h3>
+    <img src="output-8.png" alt="Box plot comparing CO₂ change distributions for High vs Low groups">
+   
+    <p>High-adopter group (≥30 %) has a lower median and narrower spread of CO₂ change than Low group.</p>
+  </section>
+
+  <section>
+    <h2>Key takeaways</h2>
+    <ol>
+      <li>Early renewables adoption correlates with slower per-capita CO₂ growth.</li>
+      <li>Per-person metrics highlight equity gaps hidden by aggregate totals.</li>
+      <li>Countries investing in renewables pre-2010 appear more resilient to emissions spikes.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Bibliography &amp; data download</h2>
+    <ol>
+      <li><a href="https://www.ipcc.ch/report/ar6/wg1/">IPCC AR6 WGI, 2023</a></li>
+      <li><a href="https://www.iea.org/reports/renewables-2024">IEA Renewables Report, 2024</a></li>
+      <li><a href="https://data.worldbank.org/indicator/EN.ATM.CO2E.PC">World Bank CO₂ per capita, 2024</a></li>
+      <li><a href="/mnt/data/share-of-final-energy-consumption-from-renewable-sources.csv">Download renewables CSV</a></li>
+      <li><a href="/mnt/data/owid-co2-data.csv">Download CO₂ per capita CSV</a></li>
+      <li><a href="/mnt/data/countries.geo.json">Download GeoJSON</a></li>
+    </ol>
+  </section>
+
+  <footer>
+    <p>Author: [Your Name] | CC BY 4.0</p>
+  </footer>
+</body>
+</html>
